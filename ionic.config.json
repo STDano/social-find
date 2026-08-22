@@ -1,0 +1,7 @@
+{
+  "name": "social-find",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
