@@ -3,11 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  geminiAPI: {
-    apiKey: 'AQ.Ab8RN6J8QAFASR_WhD5M1cTB5CWHYEeVTkFAYmw9g9ujHYI2ig',
-    baseUrl: 'https://api.gemini.com/v1'
-  }
+  production: false
 };
 
 /*
