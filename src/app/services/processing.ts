@@ -1,13 +1,17 @@
 import { Service } from '@angular/core';
 import { SocialMediaInterface } from '../interfaces/interfaces';
 import { BlueskyApi } from './bluesky-api';
+import { Gemini } from './gemini';
 
 @Service()
 export class Processing {
  
     //Github test test
 
-    constructor(private socialMediaInterface: SocialMediaInterface, private blueskyApi: BlueskyApi) {}
+    constructor(
+        private socialMediaInterface: SocialMediaInterface,
+        private blueskyApi: BlueskyApi,
+        private gemini: Gemini) {}
 
     async createCase(handle: string) {
 
@@ -21,4 +25,6 @@ export class Processing {
 
         return {profile, posts, mentions, images};
     }
+
+    
 }
