@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Processing } from 'src/app/services/processing.service';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Processing } from '../../services/processing';
 import {
   IonContent,
   IonHeader,
@@ -19,18 +19,17 @@ import {
   templateUrl: './new-case.page.html',
   styleUrls: ['./new-case.page.scss'],
   imports: [
+    CommonModule,
+    ReactiveFormsModule,
     IonContent,
     IonHeader,
     IonTitle,
     IonToolbar,
-    CommonModule,
-    FormBuilder,
     IonItem,
     IonLabel,
     IonInput,
     IonButton,
-    IonDatetime,
-    Validators
+    IonDatetime
   ]
 })
 export class NewCasePage implements OnInit {
@@ -41,7 +40,7 @@ export class NewCasePage implements OnInit {
       handle: [''],
       name: [''],
       lastLocated: [''],
-      date: ['']
+      dateLastSeen: ['']
     });
   }
 
