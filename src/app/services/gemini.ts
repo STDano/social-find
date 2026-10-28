@@ -6,14 +6,11 @@ import { environment } from '../../environments/environment';
 export class Gemini {
     private genAI = new GoogleGenAI({ apiKey: environment.geminiAPI.apiKey });
 
-    async processDate (data:any, prompt: string) {
-        const fullPrompt = `${prompt} Use this date: ${JSON.stringify(data, null, 2)}`;
-
+    async processCase (prompt: string): Promise<string> {
         const response = await this.genAI.models.generateContent({
-            model: 'gemini-2.5',
-            contents:fullPrompt
+            model: 'gemini-3.5-flash-lite',
+            contents: prompt
         });
-
-        return response.text;
+        return response.text ?? '';
     }
 }

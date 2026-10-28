@@ -8,5 +8,7 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton } from '@ionic/a
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton],
 })
 export class HomePage {
-  constructor() {}
+  constructor(
+  ) {}
+
 }
