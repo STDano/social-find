@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Processing } from '../../services/processing';
@@ -11,7 +11,7 @@ import {
   IonLabel,
   IonInput,
   IonButton,
-  IonDatetime 
+  IonDatetime
 } from '@ionic/angular';
 
 @Component({
@@ -32,28 +32,48 @@ import {
     IonDatetime
   ]
 })
-export class NewCasePage implements OnInit {
+export class NewCasePage {
   caseForm: FormGroup;
+  isSubmitting = false;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private processing: Processing
+  ) {
     this.caseForm = this.formBuilder.group({
-      handle: [''],
-      name: [''],
-      lastLocated: [''],
-      dateLastSeen: ['']
+      handle: ['', Validators.required],
+      name: ['', Validators.required],
+      lastLocated: ['', Validators.required],
+      dateLastSeen: ['', Validators.required]
     });
   }
 
-  ngOnInit() {
-  }
-
-  onSubmit() {
-    if (this.caseForm.valid) {
-      const formData = this.caseForm.value;
-      console.log('Form Data:', formData);
+  async onSubmit(): Promise<void> {
+    if (this.caseForm.invalid || this.isSubmitting) {
+      this.caseForm.markAllAsTouched();
+      return;
     }
 
-    const formData = this.caseForm.value;
-    console.log('Form Data:', formData);
+    this.isSubmitting = true;
+
+    try {
+      const formData = this.caseForm.getRawValue();
+
+      const caseId = await this.processing.createCase({
+        handle: formData.handle.trim().replace(/^@/, ''),
+        name: formData.name.trim(),
+        lastLocated: formData.lastLocated.trim(),
+        dateLastSeen: formData.dateLastSeen,
+        status: 'open',
+        createdAt: Date.now()
+      });
+
+      console.log('Case created and processing finished. Case ID:', caseId);
+      this.caseForm.reset();
+    } catch (error) {
+      console.error('Unable to create case:', error);
+    } finally {
+      this.isSubmitting = false;
+    }
   }
 }
