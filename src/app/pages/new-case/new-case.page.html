@@ -6,9 +6,8 @@
 
 <ion-content [fullscreen]="true">
   <form [formGroup]="caseForm" (ngSubmit)="onSubmit()">
-
     <ion-item>
-      <ion-label position="floating">Handle</ion-label>
+      <ion-label position="floating">Bluesky Handle</ion-label>
       <ion-input type="text" formControlName="handle" required></ion-input>
     </ion-item>
 
@@ -23,11 +22,12 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Last Date Seen</ion-label>
-      <ion-datetime type="text" formControlName="date" required></ion-datetime>
+      <ion-label position="stacked">Last Date Seen</ion-label>
+      <ion-datetime presentation="date" formControlName="dateLastSeen"></ion-datetime>
     </ion-item>
 
-    <ion-button expand="full" type="submit">Submit</ion-button>
+    <ion-button expand="full" type="submit" [disabled]="isSubmitting">
+      {{ isSubmitting ? 'Creating case...' : 'Submit' }}
+    </ion-button>
   </form>
-
 </ion-content>
